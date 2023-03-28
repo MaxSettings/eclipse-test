@@ -1,4 +1,8 @@
 .pokemon-modal {
+  @media (max-width: 567px) {
+    width: 480px !important;
+  }
+
   &__content {
     display: flex;
     align-items: center;
@@ -6,6 +10,11 @@
   }
 
   &__name {
+    @media (max-width: 567px) {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
     text-transform: capitalize;
     font-size: 32px;
     text-align: center;
@@ -13,12 +22,22 @@
   }
 
   &__image {
+    @media (max-width: 567px) {
+      width: 200px;
+      height: 200px;
+    }
+
     width: 250px;
     height: 250px;
     margin-bottom: 24px;
   }
 
   &__title {
+    @media (max-width: 567px) {
+      font-size: 18px;
+      padding: 4px;
+    }
+
     align-self: stretch;
     background-color: rgb(78, 87, 84);
     padding: 8px;
@@ -30,6 +49,16 @@
   }
 
   &__info {
+    @media (max-width: 567px) {
+      font-size: 16px;
+      margin-bottom: 8px;
+      align-items: flex-start;
+
+      &:last-child {
+        align-items: center;
+      }
+    }
+
     display: flex;
     align-items: center;
     align-self: flex-start;

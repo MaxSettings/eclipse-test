@@ -8,6 +8,10 @@
   }
 
   &__title {
+    @media (max-width: 567px) {
+      font-size: 48px;
+    }
+
     color: #feca1b;
     font-size: 64px;
     font-weight: 700;

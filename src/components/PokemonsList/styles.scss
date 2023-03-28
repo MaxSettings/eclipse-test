@@ -4,6 +4,10 @@
   flex-wrap: wrap;
 
   &__item {
+    @media (max-width: 567px) {
+      width: 100%;
+    }
+
     display: flex;
     width: calc(50% - 12px);
   }
