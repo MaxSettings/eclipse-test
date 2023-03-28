@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from 'axios';
 
-const baseURL = "https://pokeapi.co/";
+const baseURL = 'https://pokeapi.co/api/v2/';
 
 const setInterceptors = (api: AxiosInstance) => {
   api.interceptors.response.use(
@@ -8,10 +8,12 @@ const setInterceptors = (api: AxiosInstance) => {
       return response.data;
     },
     function (error) {
-      if (error.message.includes("timeout")) {
-        return Promise.reject("Timeout error");
+      if (error.message.includes('timeout')) {
+        return Promise.reject('Timeout error');
       }
-      return Promise.reject(JSON.stringify(error?.response?.data) || "Unknown error");
+      return Promise.reject(
+        JSON.stringify(error?.response?.data) || 'Unknown error'
+      );
     }
   );
 };
@@ -20,11 +22,15 @@ const API = axios.create({
   baseURL,
   timeout: 20000,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 
 setInterceptors(API);
 
-export { API };
+const endpoints = {
+  getPokemons: 'pokemon',
+};
+
+export { API, endpoints };
