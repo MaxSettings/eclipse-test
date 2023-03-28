@@ -14,7 +14,7 @@ export const PokemonsList: FC<Props> = (props) => {
     <ul className={classNames(b(), className)}>
       {pokemons.map((pokemon) => {
         return (
-          <li key={pokemon.id}>
+          <li className={b('item')} key={pokemon.id}>
             <PokemonItem pokemon={pokemon} />
           </li>
         );
