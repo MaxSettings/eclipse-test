@@ -12,7 +12,7 @@ export const AppLayout: FC<Props> = (props) => {
   return (
     <div className={classNames(b(), className)}>
       <header className={b('header')}>
-        <h1 className={b('title')}>PoKeMoN</h1>
+        <h1 className={b('title')}>PoKéMoN</h1>
       </header>
       <main className={classNames(b('content'), 'container')}>{children}</main>
     </div>

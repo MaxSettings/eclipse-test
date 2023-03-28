@@ -19,11 +19,11 @@ export const getPokemons = createAsyncThunk<GetPokemonsReturn, void>(
         endpoints.getPokemons
       );
 
-      return await Promise.all(
+      return (await Promise.all(
         pokemons.results.map(async (pokemon) => {
           return await API.get(`${endpoints.getPokemons}/${pokemon.name}`);
         })
-      );
+      )) as PokemonType[];
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
