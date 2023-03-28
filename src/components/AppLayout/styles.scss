@@ -1,0 +1,21 @@
+.app-layout {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #263238;
+    padding: 32px;
+  }
+
+  &__title {
+    color: #feca1b;
+    font-size: 64px;
+    font-weight: 700;
+    font-style: italic;
+    -webkit-text-stroke: 3px #4771b8;
+  }
+
+  &__content {
+    padding-top: 64px;
+  }
+}
