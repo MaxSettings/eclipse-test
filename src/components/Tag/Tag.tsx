@@ -9,8 +9,6 @@ const b = cn('tag');
 export const Tag: FC<Props> = (props) => {
   const { className, text, color } = props;
 
-  console.log(color);
-
   return (
     <div className={classNames(b(), className)} style={{ background: color }}>
       {text}

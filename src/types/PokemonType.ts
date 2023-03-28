@@ -15,4 +15,9 @@ export type PokemonType = {
       };
     };
   };
+  abilities: {
+    ability: {
+      name: string;
+    };
+  }[];
 };

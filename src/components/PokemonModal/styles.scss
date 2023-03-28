@@ -1,0 +1,51 @@
+.pokemon-modal {
+  &__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__name {
+    text-transform: capitalize;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  &__image {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    align-self: stretch;
+    background-color: rgb(78, 87, 84);
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    margin-bottom: 16px;
+    font-size: 18px;
+
+    b {
+      margin-right: 8px;
+    }
+  }
+
+  &__types {
+    display: flex;
+  }
+
+  &__type {
+    margin-right: 8px;
+  }
+}
