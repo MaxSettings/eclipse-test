@@ -3,3 +3,4 @@ export * from './PokemonsList/PokemonsList';
 export * from './PokemonItem/PokemonItem';
 export * from './Tag/Tag';
 export * from './PokemonModal/PokemonModal';
+export * from './ControlBar/ControlBar';

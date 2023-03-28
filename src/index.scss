@@ -22,7 +22,16 @@ li {
   list-style: none;
 }
 
+button {
+  cursor: pointer;
+}
+
 .container {
+  @media (max-width: 567px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   max-width: 1440px;
   padding-left: 32px;
   padding-right: 32px;
