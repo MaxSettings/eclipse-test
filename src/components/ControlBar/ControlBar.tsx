@@ -3,9 +3,9 @@ import classNames from 'classnames/dedupe';
 import { cn } from 'src/helpers/bem';
 import { Props } from './props';
 import './styles.scss';
-import { Input, Radio, Space } from 'antd';
+import { Input } from 'antd';
 import { TypesList } from 'src/types/TypesList';
-import { Tag } from 'src/components/Tag/Tag';
+import { AppTag } from 'src/components';
 import { getTagColorByType } from 'src/helpers/getTagColorByType';
 
 const b = cn('control-bar');
@@ -15,8 +15,6 @@ export const ControlBar: FC<Props> = (props) => {
     className,
     searchValue,
     onSearchChange,
-    countPerPage,
-    onCountPerPageChange,
     activeTypes,
     setActiveTypes,
   } = props;
@@ -29,17 +27,6 @@ export const ControlBar: FC<Props> = (props) => {
         value={searchValue}
         onChange={onSearchChange}
       />
-
-      <div className={b('radio-wrap')}>
-        <h4 className={b('subtitle')}>Show on page:</h4>
-        <Radio.Group onChange={onCountPerPageChange} value={countPerPage}>
-          <Space direction="horizontal" className={b('radio-buttons')}>
-            <Radio value={1}>10 pokemons</Radio>
-            <Radio value={2}>20 pokemons</Radio>
-            <Radio value={3}>50 pokemons</Radio>
-          </Space>
-        </Radio.Group>
-      </div>
 
       <div className={b('type-block')}>
         <h4 className={b('subtitle')}>Select Type</h4>
@@ -61,7 +48,7 @@ export const ControlBar: FC<Props> = (props) => {
                     });
                   }}
                 >
-                  <Tag text={type} color={getTagColorByType(type)} />
+                  <AppTag text={type} color={getTagColorByType(type)} />
                   {activeTypes.includes(type) && <span className={b('mark')} />}
                 </button>
               </li>

@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { RadioChangeEvent } from 'antd';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { pokemonsSelectors } from 'src/redux/pokemons/reducers/pokemons.reducer';
 import { getPokemons } from 'src/redux/pokemons/actions';
-import { AppLayout, ControlBar, PokemonsList } from 'src/components';
+import {
+  AppLayout,
+  AppPagination,
+  ControlBar,
+  PokemonsList,
+} from 'src/components';
+import { LoadingType } from 'src/types/LoadingType';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state);
   const pokemons = pokemonsSelectors.selectAll(state.pokemons);
+  const {
+    pokemons: { pokemonsLoading },
+  } = state;
 
   const [searchValue, setSearchValue] = useState<string>('');
-  const [countPerPage, setCountPerPage] = useState<number>(1);
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  function handlePageChange(page: number, pageSize: number) {
+    console.log('page', page);
+    console.log('pageSize', pageSize);
+  }
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -23,10 +36,6 @@ function App(): JSX.Element {
       <ControlBar
         searchValue={searchValue}
         onSearchChange={(e) => setSearchValue(e.target.value)}
-        countPerPage={countPerPage}
-        onCountPerPageChange={(e: RadioChangeEvent) => {
-          setCountPerPage(e.target.value);
-        }}
         activeTypes={activeTypes}
         setActiveTypes={setActiveTypes}
       />
@@ -42,6 +51,16 @@ function App(): JSX.Element {
           );
         })}
       />
+
+      {pokemonsLoading !== LoadingType.LOADING && (
+        <AppPagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageChange}
+          total={500}
+        />
+      )}
     </AppLayout>
   );
 }

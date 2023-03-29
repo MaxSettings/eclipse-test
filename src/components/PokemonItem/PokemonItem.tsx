@@ -3,9 +3,8 @@ import classNames from 'classnames/dedupe';
 import { cn } from 'src/helpers/bem';
 import { Props } from './props';
 import './styles.scss';
-import { Tag } from 'src/components/Tag/Tag';
+import { AppTag, PokemonModal } from 'src/components';
 import { getTagColorByType } from 'src/helpers/getTagColorByType';
-import { PokemonModal } from 'src/components/PokemonModal/PokemonModal';
 
 const b = cn('pokemon-item');
 
@@ -33,7 +32,7 @@ export const PokemonItem: FC<Props> = (props) => {
             {pokemon.types.map((it, index) => {
               return (
                 <li className={b('type')} key={index}>
-                  <Tag
+                  <AppTag
                     text={it.type.name}
                     color={getTagColorByType(it.type.name)}
                   />

@@ -4,9 +4,9 @@ import { cn } from 'src/helpers/bem';
 import { Props } from './props';
 import './styles.scss';
 
-const b = cn('tag');
+const b = cn('app-tag');
 
-export const Tag: FC<Props> = (props) => {
+export const AppTag: FC<Props> = (props) => {
   const { className, text, color } = props;
 
   return (
