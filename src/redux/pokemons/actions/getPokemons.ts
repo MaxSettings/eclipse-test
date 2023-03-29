@@ -18,6 +18,7 @@ export const getPokemons = createAsyncThunk<
   GetPokemonsParams
 >('pokemons/getPokemons', async (params, thunkAPI) => {
   try {
+    console.log('XD');
     const currentOffset = params.offset ? params.offset : 0;
 
     const pokemons: GetPokemonsResponse = await API.get(

@@ -10,17 +10,15 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: 'rgb(70, 130, 180)',
-          },
-        }}
-      >
-        <App />
-      </ConfigProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: 'rgb(70, 130, 180)',
+        },
+      }}
+    >
+      <App />
+    </ConfigProvider>
+  </Provider>
 );

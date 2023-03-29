@@ -6,6 +6,7 @@ import './styles.scss';
 import { Modal } from 'antd';
 import { AppTag } from 'src/components';
 import { getTagColorByType } from 'src/helpers/getTagColorByType';
+import ImagePokeball from 'src/assets/images/pokeball-image.png';
 
 const b = cn('pokemon-modal');
 
@@ -23,7 +24,7 @@ export const PokemonModal: FC<Props> = (props) => {
         <h3 className={b('name')}>{pokemon.name}</h3>
         <img
           className={b('image')}
-          src={pokemon.sprites.other.dream_world.front_default}
+          src={pokemon.sprites.other.dream_world.front_default || ImagePokeball}
           alt={pokemon.name}
         />
         <h4 className={b('title')}>Pokemon Info</h4>

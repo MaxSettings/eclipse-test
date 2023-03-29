@@ -5,6 +5,7 @@ import { Props } from './props';
 import './styles.scss';
 import { AppTag, PokemonModal } from 'src/components';
 import { getTagColorByType } from 'src/helpers/getTagColorByType';
+import ImagePokeball from 'src/assets/images/pokeball-image.png';
 
 const b = cn('pokemon-item');
 
@@ -21,7 +22,7 @@ export const PokemonItem: FC<Props> = (props) => {
       >
         <img
           className={b('image')}
-          src={pokemon.sprites.other.dream_world.front_default}
+          src={pokemon.sprites.other.dream_world.front_default || ImagePokeball}
           alt=""
         />
         <div className={b('inner')}>

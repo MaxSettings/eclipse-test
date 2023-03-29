@@ -22,18 +22,20 @@ function App(): JSX.Element {
   const [searchValue, setSearchValue] = useState<string>('');
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
   const [pageSize, setPageSize] = useState(10);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   function handlePageChange(page: number, pageSize: number) {
-    setCurrentPage(page - 1);
+    setCurrentPage(page);
     window.scrollTo(0, 0);
-    dispatch(getPokemons({ pageSize, offset: page * pageSize }));
+    dispatch(getPokemons({ pageSize, offset: (page - 1) * pageSize }));
+    console.log('handlePageChange');
   }
 
   function handlePageSizeChange(page: number, pageSize: number): void {
     setPageSize(pageSize);
     window.scrollTo(0, 0);
     dispatch(getPokemons({ pageSize }));
+    console.log('handlePageSizeChange');
   }
 
   useEffect(() => {
@@ -51,29 +53,28 @@ function App(): JSX.Element {
       {pokemonsLoading === LoadingType.LOADING ? (
         <AppSpinner />
       ) : (
-        <PokemonsList
-          pokemons={pokemons.filter((it) => {
-            return (
-              ((activeTypes.length &&
-                it.types.some((it) => {
-                  return activeTypes.includes(it.type.name);
-                })) ||
-                !activeTypes.length) &&
-              it.name.toLowerCase().includes(searchValue.toLowerCase())
-            );
-          })}
-        />
-      )}
-
-      {pokemonsLoading !== LoadingType.LOADING && (
-        <AppPagination
-          currentPage={currentPage + 1}
-          setCurrentPage={setCurrentPage}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-          currentPageSize={pageSize}
-          total={count}
-        />
+        <>
+          <PokemonsList
+            pokemons={pokemons.filter((it) => {
+              return (
+                ((activeTypes.length &&
+                  it.types.some((it) => {
+                    return activeTypes.includes(it.type.name);
+                  })) ||
+                  !activeTypes.length) &&
+                it.name.toLowerCase().includes(searchValue.toLowerCase())
+              );
+            })}
+          />
+          <AppPagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            currentPageSize={pageSize}
+            total={count}
+          />
+        </>
       )}
     </AppLayout>
   );
