@@ -1,4 +1,16 @@
 .app-pagination {
+  @media (max-width: 767px) {
+    flex-wrap: wrap;
+
+    .ant-pagination-options {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+      margin-left: 0;
+      flex-basis: 100%;
+    }
+  }
+
   display: flex;
   justify-content: center;
   margin: 32px 0 48px;
