@@ -7,6 +7,7 @@ import {
   AppPagination,
   AppSpinner,
   ControlBar,
+  EmptyListStub,
   PokemonsList,
 } from 'src/components';
 import { LoadingType } from 'src/types/LoadingType';
@@ -42,17 +43,11 @@ function App(): JSX.Element {
     dispatch(getPokemons({ pageSize }));
   }, []);
 
-  return (
-    <AppLayout>
-      <ControlBar
-        searchValue={searchValue}
-        onSearchChange={(e) => setSearchValue(e.target.value)}
-        activeTypes={activeTypes}
-        setActiveTypes={setActiveTypes}
-      />
-      {pokemonsLoading === LoadingType.LOADING ? (
-        <AppSpinner />
-      ) : (
+  function getContent() {
+    if (pokemons.length && (searchValue !== '' || activeTypes.length)) {
+      return <EmptyListStub />;
+    } else {
+      return (
         <>
           <PokemonsList
             pokemons={pokemons.filter((it) => {
@@ -75,7 +70,19 @@ function App(): JSX.Element {
             total={count}
           />
         </>
-      )}
+      );
+    }
+  }
+
+  return (
+    <AppLayout>
+      <ControlBar
+        searchValue={searchValue}
+        onSearchChange={(e) => setSearchValue(e.target.value)}
+        activeTypes={activeTypes}
+        setActiveTypes={setActiveTypes}
+      />
+      {pokemonsLoading === LoadingType.LOADING ? <AppSpinner /> : getContent()}
     </AppLayout>
   );
 }

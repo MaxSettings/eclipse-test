@@ -8,3 +8,4 @@ export * from './PokemonItem/PokemonItem';
 export * from './PokemonModal/PokemonModal';
 
 export * from './ControlBar/ControlBar';
+export * from './EmptyListStub/EmptyListStub';
