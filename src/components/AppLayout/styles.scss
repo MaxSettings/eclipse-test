@@ -30,4 +30,19 @@
     padding-top: 32px;
     padding-bottom: 48px;
   }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background-color: rgb(37, 46, 57);
+  }
+
+  &__info {
+    font-size: 28px;
+    font-weight: 600;
+    font-style: italic;
+    color: #feca1b;
+  }
 }

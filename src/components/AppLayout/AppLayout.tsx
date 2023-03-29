@@ -15,6 +15,9 @@ export const AppLayout: FC<Props> = (props) => {
         <h1 className={b('title')}>PoKéDeX</h1>
       </header>
       <main className={classNames(b('content'), 'container')}>{children}</main>
+      <footer className={b('footer')}>
+        <h3 className={b('info')}>2023</h3>
+      </footer>
     </div>
   );
 };
