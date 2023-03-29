@@ -9,23 +9,29 @@ export type GetPokemonsResponse = {
   previous: string | null;
 };
 
-export type GetPokemonsReturn = GetPokemonsResponse[`results`];
+export type GetPokemonsReturn = GetPokemonsResponse;
 
-export const getPokemons = createAsyncThunk<GetPokemonsReturn, void>(
-  'pokemons/getPokemons',
-  async (params, thunkAPI) => {
-    try {
-      const pokemons: GetPokemonsResponse = await API.get(
-        endpoints.getPokemons
-      );
+export type GetPokemonsParams = { pageSize: number; offset?: number };
 
-      return (await Promise.all(
-        pokemons.results.map(async (pokemon) => {
-          return await API.get(`${endpoints.getPokemons}/${pokemon.name}`);
-        })
-      )) as PokemonType[];
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e);
-    }
+export const getPokemons = createAsyncThunk<
+  GetPokemonsReturn,
+  GetPokemonsParams
+>('pokemons/getPokemons', async (params, thunkAPI) => {
+  try {
+    const currentOffset = params.offset ? params.offset : 0;
+
+    const pokemons: GetPokemonsResponse = await API.get(
+      `${endpoints.getPokemons}?limit=${params.pageSize}&offset=${currentOffset}`
+    );
+
+    const pokemonsInfo = (await Promise.all(
+      pokemons.results.map(async (pokemon) => {
+        return await API.get(`${endpoints.getPokemons}/${pokemon.name}`);
+      })
+    )) as PokemonType[];
+
+    return { ...pokemons, results: pokemonsInfo };
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e);
   }
-);
+});

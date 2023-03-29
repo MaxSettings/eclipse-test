@@ -1,4 +1,4 @@
-type PageChangeType = (page: number, pageSize: number) => void;
+export type PageChangeType = (page: number, pageSize: number) => void;
 
 export type Props = {
   className?: string;
@@ -7,4 +7,5 @@ export type Props = {
   onPageChange: PageChangeType;
   onPageSizeChange: PageChangeType;
   total: number;
+  currentPageSize: number;
 };

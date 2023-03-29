@@ -20,6 +20,8 @@
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
     padding-top: 32px;
     padding-bottom: 48px;
   }

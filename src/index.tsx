@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.scss';
 import { store } from 'src/redux/store';
+import { ConfigProvider } from 'antd';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -11,7 +12,15 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: 'rgb(70, 130, 180)',
+          },
+        }}
+      >
+        <App />
+      </ConfigProvider>
     </Provider>
   </React.StrictMode>
 );

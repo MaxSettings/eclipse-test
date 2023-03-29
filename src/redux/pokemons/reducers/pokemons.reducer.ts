@@ -18,12 +18,18 @@ export const pokemonsSelectors = pokemonsAdapter.getSelectors();
 export type PokemonsState = {
   entities: Dictionary<PokemonType>;
   ids: number[];
+  next: string | null;
+  prev: string | null;
+  count: number;
   pokemonsLoading: LoadingType;
 };
 
 const initialState: PokemonsState = {
   entities: {},
   ids: [],
+  next: null,
+  prev: null,
+  count: 0,
   pokemonsLoading: LoadingType.INITIAL,
 };
 

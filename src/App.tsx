@@ -5,6 +5,7 @@ import { getPokemons } from 'src/redux/pokemons/actions';
 import {
   AppLayout,
   AppPagination,
+  AppSpinner,
   ControlBar,
   PokemonsList,
 } from 'src/components';
@@ -15,20 +16,28 @@ function App(): JSX.Element {
   const state = useAppSelector((state) => state);
   const pokemons = pokemonsSelectors.selectAll(state.pokemons);
   const {
-    pokemons: { pokemonsLoading },
+    pokemons: { pokemonsLoading, count },
   } = state;
 
   const [searchValue, setSearchValue] = useState<string>('');
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
 
   function handlePageChange(page: number, pageSize: number) {
-    console.log('page', page);
-    console.log('pageSize', pageSize);
+    setCurrentPage(page - 1);
+    window.scrollTo(0, 0);
+    dispatch(getPokemons({ pageSize, offset: page * pageSize }));
+  }
+
+  function handlePageSizeChange(page: number, pageSize: number): void {
+    setPageSize(pageSize);
+    window.scrollTo(0, 0);
+    dispatch(getPokemons({ pageSize }));
   }
 
   useEffect(() => {
-    dispatch(getPokemons());
+    dispatch(getPokemons({ pageSize }));
   }, []);
 
   return (
@@ -39,26 +48,31 @@ function App(): JSX.Element {
         activeTypes={activeTypes}
         setActiveTypes={setActiveTypes}
       />
-      <PokemonsList
-        pokemons={pokemons.filter((it) => {
-          return (
-            ((activeTypes.length &&
-              it.types.some((it) => {
-                return activeTypes.includes(it.type.name);
-              })) ||
-              !activeTypes.length) &&
-            it.name.toLowerCase().includes(searchValue.toLowerCase())
-          );
-        })}
-      />
+      {pokemonsLoading === LoadingType.LOADING ? (
+        <AppSpinner />
+      ) : (
+        <PokemonsList
+          pokemons={pokemons.filter((it) => {
+            return (
+              ((activeTypes.length &&
+                it.types.some((it) => {
+                  return activeTypes.includes(it.type.name);
+                })) ||
+                !activeTypes.length) &&
+              it.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+          })}
+        />
+      )}
 
       {pokemonsLoading !== LoadingType.LOADING && (
         <AppPagination
-          currentPage={currentPage}
+          currentPage={currentPage + 1}
           setCurrentPage={setCurrentPage}
           onPageChange={handlePageChange}
-          onPageSizeChange={handlePageChange}
-          total={500}
+          onPageSizeChange={handlePageSizeChange}
+          currentPageSize={pageSize}
+          total={count}
         />
       )}
     </AppLayout>

@@ -16,7 +16,12 @@ export const getPokemonsSuccess = (
   state: PokemonsState,
   action: GetBrandsAction
 ) => {
-  pokemonsAdapter.upsertMany(state, action.payload);
+  pokemonsAdapter.removeAll(state);
+  pokemonsAdapter.upsertMany(state, action.payload.results);
+
+  state.prev = action.payload.previous;
+  state.next = action.payload.next;
+  state.count = action.payload.count;
   state.pokemonsLoading = LoadingType.LOADED;
 };
 
