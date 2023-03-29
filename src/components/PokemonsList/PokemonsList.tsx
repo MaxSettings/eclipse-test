@@ -3,12 +3,16 @@ import classNames from 'classnames/dedupe';
 import { cn } from 'src/helpers/bem';
 import { Props } from './props';
 import './styles.scss';
-import { PokemonItem } from 'src/components/PokemonItem/PokemonItem';
+import { PokemonItem, EmptyListStub } from 'src/components';
 
 const b = cn('pokemons-list');
 
 export const PokemonsList: FC<Props> = (props) => {
   const { className, pokemons } = props;
+
+  if (!pokemons.length) {
+    return <EmptyListStub />;
+  }
 
   return (
     <ul className={classNames(b(), className)}>

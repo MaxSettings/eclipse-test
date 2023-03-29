@@ -7,7 +7,6 @@ import {
   AppPagination,
   AppSpinner,
   ControlBar,
-  EmptyListStub,
   PokemonsList,
 } from 'src/components';
 import { LoadingType } from 'src/types/LoadingType';
@@ -29,25 +28,31 @@ function App(): JSX.Element {
     setCurrentPage(page);
     window.scrollTo(0, 0);
     dispatch(getPokemons({ pageSize, offset: (page - 1) * pageSize }));
-    console.log('handlePageChange');
   }
 
   function handlePageSizeChange(page: number, pageSize: number): void {
     setPageSize(pageSize);
     window.scrollTo(0, 0);
     dispatch(getPokemons({ pageSize }));
-    console.log('handlePageSizeChange');
   }
 
   useEffect(() => {
     dispatch(getPokemons({ pageSize }));
   }, []);
 
-  function getContent() {
-    if (pokemons.length && (searchValue !== '' || activeTypes.length)) {
-      return <EmptyListStub />;
-    } else {
-      return (
+  return (
+    <AppLayout>
+      <ControlBar
+        searchValue={searchValue}
+        onSearchChange={(e) => {
+          setSearchValue(e.target.value);
+        }}
+        activeTypes={activeTypes}
+        setActiveTypes={setActiveTypes}
+      />
+      {pokemonsLoading === LoadingType.LOADING ? (
+        <AppSpinner />
+      ) : (
         <>
           <PokemonsList
             pokemons={pokemons.filter((it) => {
@@ -70,19 +75,7 @@ function App(): JSX.Element {
             total={count}
           />
         </>
-      );
-    }
-  }
-
-  return (
-    <AppLayout>
-      <ControlBar
-        searchValue={searchValue}
-        onSearchChange={(e) => setSearchValue(e.target.value)}
-        activeTypes={activeTypes}
-        setActiveTypes={setActiveTypes}
-      />
-      {pokemonsLoading === LoadingType.LOADING ? <AppSpinner /> : getContent()}
+      )}
     </AppLayout>
   );
 }
